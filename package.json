@@ -18,6 +18,7 @@
   "homepage": "https://github.com/rive1215/backend_juego_naves#readme",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "joi": "^17.13.3",
