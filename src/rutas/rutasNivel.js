@@ -3,7 +3,7 @@ const enrutador = express.Router();
 const nivelControlador = require('../controladores/nivelControlador');
 const autentificacion = require('../middleware/autentification');
 
-enrutador.post('/registrar', autentificacion,nivelControlador.crearNivel);
+enrutador.post('/registrar',nivelControlador.crearNivel);
 enrutador.get('/listar', autentificacion,nivelControlador.listarNiveles);
 enrutador.put('/actualizar/:cedula', autentificacion,nivelControlador.actualizarNivel);
 enrutador.delete('/borrar/:cedula', autentificacion,nivelControlador.borrarNivel);

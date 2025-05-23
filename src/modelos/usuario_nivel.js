@@ -1,26 +1,26 @@
-const defineUsuario_Nivel = (sequelize, Datatypes) => {
+const defineUsuario_Nivel = (sequelize, DataTypes) => {
     return sequelize.define('Usuario_nivel', {
         id: {
-            type: Datatypes.INTEGER,
+            type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
         cedula_usuario: {
-            type: Datatypes.STRING,
+            type: DataTypes.STRING,
             references: {
                 model: 'usuario',
                 key: 'cedula'
             }
         },
         id_nivel: {
-            type: Datatypes.INTEGER,
+            type: DataTypes.INTEGER,
             references: {
                 model: 'nivel',
                 key: 'id'
             }
         }, 
         tiempo: {
-            type: Datatypes.INTEGER,
+            type: DataTypes.INTEGER,
         }
     }, {
         tableName: 'usuario_nivel',

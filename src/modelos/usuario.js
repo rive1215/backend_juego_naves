@@ -1,15 +1,15 @@
-const defineUsuario = (sequelize, Datatypes) => {
+const defineUsuario = (sequelize, DataTypes) => {
     return sequelize.define('Usuario', {
         contrasena: {
-            type: Datatypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         nombre: {
-            type: Datatypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false
         },
         cedula: {
-            type: Datatypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
             primarykey: true,
             unique: 'cedula'

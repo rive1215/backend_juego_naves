@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const { Sequelize,Datatypes } = require('sequelize');
+const { Sequelize,DataTypes } = require('sequelize');
 
 const defineNivel = require('../modelos/nivel');
 const defineUsuario = require('../modelos/usuario');
@@ -16,9 +16,9 @@ const sequelize = new Sequelize(
     }    
 );
 
-const Nivel = defineNivel(sequelize, Datatypes);
-const Usuario = defineUsuario(sequelize, Datatypes);
-const Usuario_nivel = defineUsuario_Nivel(sequelize,Datatypes);
+const Nivel = defineNivel(sequelize, DataTypes);
+const Usuario = defineUsuario(sequelize, DataTypes);
+const Usuario_nivel = defineUsuario_Nivel(sequelize,DataTypes);
 
 sequelize.authenticate()
   .then(() => console.log('Conectado a la base de datos.'))
