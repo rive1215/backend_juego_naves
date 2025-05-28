@@ -6,6 +6,6 @@ const autentificacion = require('../middleware/autentification');
 enrutador.get('/listar', autentificacion,usuarioControlador.listarUsuarios);
 enrutador.put('/actualizar/:cedula', autentificacion,usuarioControlador.actualizarUsuario);
 enrutador.delete('/borrar/:cedula', autentificacion,usuarioControlador.borrarUsuario);
-enrutador.get('/obtenercliente/:cedula', autentificacion,usuarioControlador.obtenerUsuario);
+enrutador.get('/obtenerUsuario/:cedula', autentificacion,usuarioControlador.obtenerUsuario);
 
 module.exports = enrutador;

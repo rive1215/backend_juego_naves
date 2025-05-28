@@ -30,7 +30,6 @@ const validadorUsuario = Joi.object({
 const validadorSesion = Joi.object({
   cedula: Joi.string().required().messages({
     'string.base': 'La cedula debe ser un texto',
-    'string.email': 'La cedula debe ser válido',
     'any.required': 'La cedula es un campo obligatorio'
   }),
   contrasena: Joi.string().min(8).required().messages({
@@ -135,7 +134,7 @@ const listarUsuarios = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             mensaje: 'Error en el servidor',
-            resutado: null
+            resultado: null
         });
     }
 };
@@ -143,9 +142,9 @@ const listarUsuarios = async (req, res) => {
 const actualizarUsuario = async (req, res) => {
     try {
         const { cedula } = req.params;
-        const { nombre, contrasena } = req.body;
+        let { nombre, contrasena } = req.body;
 
-        const usuario = Usuario.findByPk(cedula);
+        const usuario = await Usuario.findByPk(cedula);
 
         if (!usuario) {
             return res.status(404).json({
@@ -154,13 +153,23 @@ const actualizarUsuario = async (req, res) => {
             });
         }
 
-        await usuario.update({ nombre, contrasena});
+        // Encriptar la contraseña antes de actualizar
+        if (contrasena) {
+            const hashedContrasena = await hashContrasena(contrasena);
+            contrasena = hashedContrasena;
+        }
+
+        await usuario.update({ nombre, contrasena });
 
         res.status(200).json({
             mensaje: 'Usuario actualizado',
-            resultado: usuario
+            resultado: {
+                cedula: usuario.cedula,
+                nombre: usuario.nombre,
+                contrasena: usuario.contrasena  // Encriptada
+            }
         });
-    }   catch (error) {
+    } catch (error) {
         res.status(500).json({
             mensaje: 'Error en el servidor',
             resultado: null
@@ -184,7 +193,7 @@ const borrarUsuario = async (req, res) => {
         await usuario.destroy();
 
         res.status(200).json({
-            mensaje: 'Usuarion borrado',
+            mensaje: 'Usuario borrado',
             resultado: null
         });
     } catch (error) {

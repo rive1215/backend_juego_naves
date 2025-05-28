@@ -11,8 +11,8 @@ const defineUsuario = (sequelize, DataTypes) => {
         cedula: {
             type: DataTypes.STRING,
             allowNull: false,
-            primarykey: true,
-            unique: 'cedula'
+            primaryKey: true,
+            unique: true
         }
     }, {
         tableName: 'usuario',

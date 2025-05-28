@@ -67,7 +67,7 @@ const listarNiveles = async (req, res) => {
       const niveles = await Nivel.findAll();
       
       res.status(200).json({
-        mensaje: 'Niveles listadas correctamente',
+        mensaje: 'Niveles listados correctamente',
         resultado: niveles
       });
     } catch (error) {
@@ -122,7 +122,7 @@ const actualizarNivel = async (req, res) => {
       }
   
       // Actualizar el nivel
-      await tienda.update({ nombre, velocidad });
+      await nivel.update({ nombre, velocidad });
   
       res.status(200).json({
         mensaje: 'Nivel actualizado',

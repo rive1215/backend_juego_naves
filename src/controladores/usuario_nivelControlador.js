@@ -10,16 +10,16 @@ const validadorUN = Joi.object({
       'any.required': 'La cédula es un campo obligatorio.'
     }),
     id_nivel: Joi.number().integer().positive().required().messages({
-      'number.base': 'El ID del producto debe ser un número.',
-      'number.integer': 'El ID del producto debe ser un número entero.',
-      'number.positive': 'El ID del producto debe ser un número positivo.',
-      'any.required': 'El ID del producto es un campo obligatorio.'
+      'number.base': 'El ID del nivel debe ser un número.',
+      'number.integer': 'El ID del nivel debe ser un número entero.',
+      'number.positive': 'El ID del nivel debe ser un número positivo.',
+      'any.required': 'El ID del nivel es un campo obligatorio.'
     }),
-    tiempo: Joi.number().integer().positive().required().messages({
-      'number.base': 'La cantidad debe ser un número.',
-      'number.integer': 'La cantidad debe ser un número entero.',
-      'number.positive': 'La cantidad debe ser mayor a 0.',
-      'any.required': 'La cantidad es un campo obligatorio.'
+    tiempo: Joi.number().integer().min(0).required().messages({
+      'number.base': 'El tiempo debe ser un número.',
+      'number.integer': 'El tiempo debe ser un número entero.',
+      'number.min': 'El tiempo debe ser mayor o igual a 0.',
+      'any.required': 'El tiempo es un campo obligatorio.'
     })
 });
 
@@ -97,17 +97,35 @@ const obtenerNivelUsuario = async (req, res) => {
       }
     });
 
-    if (!un.lenght) {
+    if (!un.length) {
         return res.status(404).json({ mensaje: "Este usuario no va en ningún nivel", resultado:null });
     }
     return res.status(200).json({ mensaje: "Datos de los niveles", resultado:un});
   } catch (error) {
-    return res.status(500).json({ mensaje: error.mensaje, resultado:null });
+    return res.status(500).json({ mensaje: error.message, resultado:null });
+  }
+};
+
+const obtenerUsuarioNivel = async (req, res) => {
+  try {
+    const uns = await Usuario_nivel.findAll({
+      where: {
+        id_nivel:req.params.id
+      }
+    });
+
+    if (!uns.length) {
+        return res.status(404).json({ mensaje: "No hay usuarios en este nivel", resultado:null });
+    }
+    return res.status(200).json({ mensaje: "Datos de los niveles", resultado:uns});
+  } catch (error) {
+    return res.status(500).json({ mensaje: error.message, resultado:null });
   }
 };
 
 module.exports = {
     registrarUsuario_nivel,
     listarUsuario_nivel,
-    obtenerNivelUsuario
+    obtenerNivelUsuario,
+    obtenerUsuarioNivel
 };
